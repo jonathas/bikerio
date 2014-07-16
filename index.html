@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui"/>
+        <title>bikePOA</title>
+        <link rel="shortcut icon" type="image/png" href="img/icon/favicon.png" />
+        <link rel="stylesheet" href="css/ionic.min.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="css/custom.css" type="text/css" media="screen"/>
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+        <script type="text/javascript" src="js/application.js"></script>
+    </head>
+    <body> 
+        <main id="main">
+            <menu>
+                <header class="bar bar-header">
+                    <div class="h1 title">Filtros</div>
+                </header>
+                <article class="content has-header">
+                    <div class="list">
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Cidade</span>
+                            <select id="select_cities" name="select_cities">
+
+                            </select>
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Tipo</span>
+                            <select id="select_types" name="select_types">
+
+                            </select>
+                        </label>
+                    </div>
+                    <div class="padding">
+                        <button class="button button-block button-positive">Filtrar</button>
+                    </div>
+                </article>
+            </menu>
+            <section>
+                <header class="bar bar-header">
+                    <button class="button icon ion-navicon"></button>
+                    <div class="h1 title">Vizito</div>
+                    <button class="button icon ion-map"></button>
+                </header>
+                <article id="map" class="content has-header">
+                </article>
+            </section>
+        </main>
+    </body>
+</html>

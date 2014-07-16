@@ -1,0 +1,22 @@
+{
+  "name": "bikePOA",
+  "version": "1.0",
+  "description": "Descrição",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/img/icon/icon-16.png",
+    "32": "/img/icon/icon-32.png",
+    "48": "/img/icon/icon-48.png",
+    "60": "/img/icon/icon-60.png",
+    "64": "/img/icon/icon-64.png",
+    "90": "/img/icon/icon-90.png",
+    "120": "/img/icon/icon-120.png",
+    "128": "/img/icon/icon-128.png",
+    "256": "/img/icon/icon-256.png"
+  },
+  "developer": {
+    "name": "Rodrigo Waters",
+    "url": "http://www.rodrigowaters.com"
+  },
+  "default_locale": "pt-BR"
+}
