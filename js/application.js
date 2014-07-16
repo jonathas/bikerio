@@ -35,19 +35,15 @@ var App = {
             url: 'http://datapoa.com.br/api/action/datastore_search',
             data: {
                 resource_id: 'b64586af-cd7c-47c3-9b92-7b99875e1c08', // the resource id
-    limit: 5, // get 5 results
+//                limit: 5, // get 5 results
 //    q: 'jones' // query for 'jones'
             },
             dataType: 'jsonp',
             success: function($response) {
                 var $records = $response.result.records;
                 $.each($records, function($key, $event) {
-                    var $geolocation = {
-                        'lat': $event.LATITUDE,
-                        'lon': $event.LONGITUDE
-                    };
+                    var $geolocation = new OpenLayers.LonLat($event.LONGITUDE, $event.LATITUDE).transform(new OpenLayers.Projection("EPSG:4326"), App.map.getProjectionObject());
                     markers.addMarker(new OpenLayers.Marker($geolocation));
-                    console.log($geolocation)
                 });
                 App.map.addLayer(markers);
             }
@@ -59,7 +55,7 @@ var App = {
         App.map = new OpenLayers.Map("map");
         App.map.addLayer(new OpenLayers.Layer.OSM());
         var lonLat = new OpenLayers.LonLat(-51.22676448, -30.02875574).transform(new OpenLayers.Projection("EPSG:4326"), App.map.getProjectionObject());
-        App.map.setCenter(lonLat, 0);
+        App.map.setCenter(lonLat, 12.5);
     }
 };
 $(document).ready(function() {
