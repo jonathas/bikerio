@@ -1,5 +1,20 @@
 var App = {
     stations: {},
+    geolocation: {},
+    get_geolocation: function() {
+        this.success = function($position) {
+            App.geolocation = {
+                latitude: $position.coords.latitude,
+                longitude: $position.coords.longitude
+            };
+            var lonLat = new OpenLayers.LonLat(App.geolocation.longitude, App.geolocation.latitude).transform(new OpenLayers.Projection("EPSG:4326"), App.map.getProjectionObject());
+            App.map.setCenter(lonLat, 12.5);
+        };
+        this.failure = function() {
+            alert('Não foi possível definir sua geolocalização');
+        };
+        navigator.geolocation.getCurrentPosition(this.success, this.failure);
+    },
     map: {},
     template: function($id, $Name) {
         var $temp_name = $Name.replaceAll('_', ' ');
@@ -68,7 +83,7 @@ $(document).ready(function() {
         $('main#main').toggleClass('show_menu');
     });
     $('main#main section header.bar-header button.ion-map').click(function() {
-
+        App.get_geolocation();
     });
 //    $('main#main menu button').click(function() {
 //        App.apply_filters();
