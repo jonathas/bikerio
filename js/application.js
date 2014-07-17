@@ -17,7 +17,7 @@ var App = {
     },
     map: {},
     template: function($id, $Name) {
-        return '<div data-id_statios="' + $id + '" class="item item-button-right">\
+        return '<div data-id_station="' + $id + '" class="item item-button-right">\
                     ' + $Name + '\
                     <button class="button button-positive">\
                         <i class="icon ion-arrow-right-c"></i>\
@@ -62,7 +62,7 @@ var App = {
                                 }), true);
                     });
 
-                    $items.push(App.template($station.numero, $station.name));
+                    $items.push(App.template($key, $station.name));
                 });
                 App.map.addLayer(markers);
                 App.stations.sort(function(a, b) {
@@ -71,10 +71,9 @@ var App = {
                 $("<div/>", {
                     class: 'list card',
                     html: $items.join("")
-                }).appendTo("main#main menu article").find('div.tabs a.tab-item').click(function() {
-                    var $function = $(this).data('function');
-                    var $id_event = $(this).closest('.item').data('id_event');
-                    App.log("App.View." + $function + "('" + $id_event + "')", true);
+                }).appendTo("main#main menu article").find('div.item button.button-positive').click(function() {
+                    var $id_station = $(this).closest('div.item').data('id_station');
+                    console.log(App.stations[$id_station])
                 });
             }
         });
