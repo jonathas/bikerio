@@ -17,9 +17,8 @@ var App = {
     },
     map: {},
     template: function($id, $Name) {
-        var $temp_name = $Name.replaceAll('_', ' ');
         return '<div data-id_statios="' + $id + '" class="item item-button-right">\
-                    ' + $temp_name + '\
+                    ' + $Name + '\
                     <button class="button button-positive">\
                         <i class="icon ion-arrow-right-c"></i>\
                     </button>\
@@ -34,7 +33,7 @@ var App = {
             return 0;
         });
     },
-    apply_events: function() {
+    apply_stations: function() {
         $("main#main menu article").empty();
         var markers = new OpenLayers.Layer.Markers("Markers");
         $.ajax({
@@ -48,10 +47,22 @@ var App = {
                 var $items = [];
                 App.order_by_name();
                 $.each(App.stations, function($key, $station) {
+                    $station.name =  $station.nome.replaceAll('_', ' ');
                     var $geolocation = new OpenLayers.LonLat($station.LONGITUDE, $station.LATITUDE).transform(new OpenLayers.Projection("EPSG:4326"), App.map.getProjectionObject());
                     var $Marker = new OpenLayers.Marker($geolocation);
                     markers.addMarker($Marker);
-                    $items.push(App.template($station.numero, $station.nome));
+                    $($Marker.events.element).data('name', $station.name).click(function(evt) {
+                        var $name = $(this).data('name');
+                        App.map.addPopup(new OpenLayers.Popup.FramedCloud("featurePopup",
+                                $geolocation,
+                                new OpenLayers.Size(100, 100),
+                                $name,
+                                null, true, function() {
+                                    this.destroy();
+                                }), true);
+                    });
+
+                    $items.push(App.template($station.numero, $station.name));
                 });
                 App.map.addLayer(markers);
                 App.stations.sort(function(a, b) {
@@ -70,7 +81,7 @@ var App = {
     },
     init: function() {
         $('header #filters form').submit(App.apply_filters);
-        App.apply_events();
+        App.apply_stations();
         App.map = new OpenLayers.Map("map");
         App.map.addLayer(new OpenLayers.Layer.OSM());
         var lonLat = new OpenLayers.LonLat(-51.22067189, -30.06074719).transform(new OpenLayers.Projection("EPSG:4326"), App.map.getProjectionObject());
@@ -78,6 +89,12 @@ var App = {
     }
 };
 $(document).ready(function() {
+    /*
+     * 
+     * alterar icon market OpenLayers.ImgPath = "/resources/external/images/ol/";
+     * 
+     */
+
     App.init();
     $('main#main section header.bar-header button.ion-navicon').click(function() {
         $('main#main').toggleClass('show_menu');
