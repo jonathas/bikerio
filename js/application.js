@@ -16,8 +16,8 @@ var App = {
         navigator.geolocation.getCurrentPosition(this.success, this.failure);
     },
     map: {},
-    template: function($id, $Name) {
-        return '<div data-id_station="' + $id + '" class="item item-button-right">\
+    template: function($id, $element, $Name) {
+        return '<div data-id_station="' + $id + '" data-id_element="' + $element + '" class="item item-button-right">\
                     ' + $Name + '\
                     <button class="button button-positive">\
                         <i class="icon ion-arrow-right-c"></i>\
@@ -47,7 +47,7 @@ var App = {
                 var $items = [];
                 App.order_by_name();
                 $.each(App.stations, function($key, $station) {
-                    $station.name =  $station.nome.replaceAll('_', ' ');
+                    $station.name = $station.nome.replaceAll('_', ' ');
                     var $geolocation = new OpenLayers.LonLat($station.LONGITUDE, $station.LATITUDE).transform(new OpenLayers.Projection("EPSG:4326"), App.map.getProjectionObject());
                     var $Marker = new OpenLayers.Marker($geolocation);
                     markers.addMarker($Marker);
@@ -62,7 +62,7 @@ var App = {
                                 }), true);
                     });
 
-                    $items.push(App.template($key, $station.name));
+                    $items.push(App.template($key, $Marker.events.element.id, $station.name));
                 });
                 App.map.addLayer(markers);
                 App.stations.sort(function(a, b) {
@@ -73,7 +73,9 @@ var App = {
                     html: $items.join("")
                 }).appendTo("main#main menu article").find('div.item button.button-positive').click(function() {
                     var $id_station = $(this).closest('div.item').data('id_station');
-                    console.log(App.stations[$id_station])
+                    var $id_element = $(this).closest('div.item').data('id_element');
+                    $('main#main').toggleClass('show_menu');
+                    $('#' + $id_element).click();
                 });
             }
         });
