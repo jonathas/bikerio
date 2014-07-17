@@ -3,7 +3,7 @@ body {display: flex;flex-direction: column;}
 main {flex: auto;}
 
 main#main menu{height: 100%;left: 0;position: absolute;top: 0;transform: translate3d(-100%, 0px, 0px);width: 300px;z-index: 1;}
-main#main menu select{color: #111;display: block;font-size: 14px;height: 34px;line-height: 16px;padding-top: 2px;vertical-align: middle;width: calc(100% - 5px);border: 0px;}
+main#main menu article{height: calc(100% - 44px);overflow: auto;}
 
 main#main section{height: 100%;}
 main#main.show_menu menu{transform: translate3d(0px, 0px, 0px)}
