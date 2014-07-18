@@ -83,10 +83,12 @@ var App = {
     init: function() {
         $('header #filters form').submit(App.apply_filters);
         App.apply_stations();
-        App.map = new OpenLayers.Map("map");
-        App.map.addLayer(new OpenLayers.Layer.OSM());
-        var lonLat = new OpenLayers.LonLat(-51.22067189, -30.06074719).transform(new OpenLayers.Projection("EPSG:4326"), App.map.getProjectionObject());
-        App.map.setCenter(lonLat, 12.5);
+        App.map = new OpenLayers.Map({
+            div: "map",
+            layers: [new OpenLayers.Layer.OSM()],
+            center: new OpenLayers.LonLat(-51.22067189, -30.06074719).transform("EPSG:4326", "EPSG:900913"),
+            zoom: 12.5
+        });
     }
 };
 $(document).ready(function() {
