@@ -92,12 +92,6 @@ var App = {
     }
 };
 $(document).ready(function() {
-    /*
-     * 
-     * alterar icon market OpenLayers.ImgPath = "/resources/external/images/ol/";
-     * 
-     */
-
     App.init();
     $('main#main section header.bar-header button.ion-navicon').click(function() {
         $('main#main').toggleClass('show_menu');
@@ -105,10 +99,6 @@ $(document).ready(function() {
     $('main#main section header.bar-header button.ion-map').click(function() {
         App.get_geolocation();
     });
-//    $('main#main menu button').click(function() {
-//        App.apply_filters();
-//        $('main#main section header.bar-header button').click();
-//    });
 });
 String.prototype.replaceAll = function(de, para) {
     var str = this;
@@ -118,4 +108,4 @@ String.prototype.replaceAll = function(de, para) {
         pos = str.indexOf(de);
     }
     return (str);
-}
+};
