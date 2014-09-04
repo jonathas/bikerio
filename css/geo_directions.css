@@ -1,0 +1,93 @@
+#geodirections_container .geomap {
+	display: block;
+	width: 100%;
+	height: 300px;
+}
+
+#geodirections_container {
+	
+	margin-top: 40px;
+}
+
+.geoalert-info {
+    background-color: #D9EDF7;
+    border-color: #BCE8F1;
+    color: #31708F;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 15px;
+    text-align: center;
+    display: block;
+}
+
+.geoalert-info .loading {
+	display: inline-block;
+}
+
+.geoalert-success {
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    color: #3C763D;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 15px;
+    text-align: center;
+    display: block;
+}
+
+.geoalert-success .success {
+    display: inline-block;
+    width: 70px;
+}
+
+.geoalert-warning {
+    background-color: #FCF8E3;
+    border-color: #FAEBCC;
+    color: #8A6D3B;
+	
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	margin-top: 20px;
+	text-align: center;
+	padding: 15px;
+}
+
+#geodirections_container .adp-text {
+	padding-left: 10px;
+}
+
+#geodirections_container img.adp-marker {
+    height: 46px;
+    padding: 5px;
+    width: 31px;
+}
+
+#geodirections_container .adp-directions {
+	width: 100%;
+}
+
+#geodirections_container .directions_panel_link {
+	text-align: center;
+	background: #EDEDED;
+	cursor: pointer;
+	color: black;
+	-webkit-border-bottom-right-radius: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	-moz-border-radius-bottomright: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+	text-transform: uppercase;
+}
+
+#geodirections_container .img_collapse {
+	height: 18px;
+    vertical-align: -2px;
+}

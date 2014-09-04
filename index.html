@@ -1,14 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="pt-BR">
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui"/>
         <title>bikePOA</title>
         <link rel="shortcut icon" type="image/png" href="img/icon/favicon.png" />
         <link rel="stylesheet" href="css/ionic.min.css" type="text/css" media="screen"/>
+        <link rel="stylesheet" href="css/geo_directions.css" type="text/css" media="screen"/>
         <link rel="stylesheet" href="css/custom.css" type="text/css" media="screen"/>
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places" type="text/javascript"></script>
+
+        <script src="js/jquery.cookie.min.js"></script>
+        <script src="js/jquery.geolocation.js"></script>
+        <script src="js/infobox.min.js"></script>
+        <script src="js/jquery.geo_directions.js"></script>
+
         <script type="text/javascript" src="js/application.js"></script>
     </head>
     <body> 
@@ -18,7 +25,7 @@
                     <div class="h1 title">Estações disponíveis</div>
                 </header>
                 <article class="content has-header">
-                    
+
                 </article>
             </menu>
             <section>
@@ -31,5 +38,5 @@
                 </article>
             </section>
         </main>
-</body>
+    </body>
 </html>

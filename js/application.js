@@ -16,11 +16,11 @@ var App = {
         navigator.geolocation.getCurrentPosition(this.success, this.failure);
     },
     map: {},
-    template: function($id, $element, $Name) {
-        return '<div data-id_station="' + $id + '" data-id_element="' + $element + '" class="item item-button-right">\
+    template: function($id, $Name) {
+        return '<div data-id_station="' + $id + '" data-id_element="$element" class="item item-button-right">\
                     ' + $Name + '\
                     <button class="button button-positive">\
-                        <i class="icon ion-arrow-right-c"></i>\
+                        <i class="icon ion-ios7-navigate-outline"></i>\
                     </button>\
                 </div>';
     },
@@ -35,7 +35,7 @@ var App = {
     },
     apply_stations: function() {
         $("main#main menu article").empty();
-        var markers = new OpenLayers.Layer.Markers("Markers");
+//        var markers = new OpenLayers.Layer.Markers("Markers");
         $.ajax({
             url: 'http://datapoa.com.br/api/action/datastore_search',
             data: {
@@ -46,25 +46,23 @@ var App = {
                 App.stations = $response.result.records;
                 var $items = [];
                 App.order_by_name();
+                var $marker = [];
                 $.each(App.stations, function($key, $station) {
-                    $station.name = $station.nome.replaceAll('_', ' ');
-                    var $geolocation = new OpenLayers.LonLat($station.LONGITUDE, $station.LATITUDE).transform(new OpenLayers.Projection("EPSG:4326"), App.map.getProjectionObject());
-                    var $Marker = new OpenLayers.Marker($geolocation);
-                    markers.addMarker($Marker);
-                    $($Marker.events.element).data('name', $station.name).click(function(evt) {
-                        var $name = $(this).data('name');
-                        App.map.addPopup(new OpenLayers.Popup.FramedCloud("featurePopup",
-                                $geolocation,
-                                new OpenLayers.Size(100, 100),
-                                $name,
-                                null, true, function() {
-                                    this.destroy();
-                                }), true);
+                    $station.name = (($station.nome).replaceAll('_', ' ')).toString();
+                    $marker[$key] = new google.maps.Marker({
+                        position: new google.maps.LatLng($station.LATITUDE, $station.LONGITUDE),
+                        map: App.map,
+                        title: $station.name,
+//                        icon: 'images/beachflag.png'
                     });
-
-                    $items.push(App.template($key, $Marker.events.element.id, $station.name));
+                    google.maps.event.addListener($marker[$key], 'click', function() {
+                        var infowindow = new google.maps.InfoWindow({
+                            content: $station.name
+                        });
+                        infowindow.open(App.map, $marker[$key]);
+                    });
+                    $items.push(App.template($key, $station.name));
                 });
-                App.map.addLayer(markers);
                 App.stations.sort(function(a, b) {
                     return a['nome'] - b['nome'];
                 });
@@ -72,21 +70,40 @@ var App = {
                     class: 'list card',
                     html: $items.join("")
                 }).appendTo("main#main menu article").find('div.item button.button-positive').click(function() {
-                    var $id_station = $(this).closest('div.item').data('id_station');
-                    var $id_element = $(this).closest('div.item').data('id_element');
-                    $('main#main').toggleClass('show_menu');
-                    $('#' + $id_element).click();
+                    /*
+                     abrir nova aba com navigate
+                     */
+//    $("#geodirections_container").geoDirections({
+//        mapTheme: "blue", // Map Theme
+//        targetMarker: {// Target Marker Position
+//            lat: "-23.550520",
+//            lng: "-46.633309"
+//        },
+//        travelMode: "driving", // Travel Mode (driving, walking, transit or bicyling)
+//        directionDetails: {// Show or Hide Direction Details
+//            enabled: true,
+//            panelOpened: false
+//        },
+//        directionStroke: {// Direction Stroke Customization
+//            color: "#307bb4", // The Hex Color of the Stroke
+//            opacity: 0.8, // The Opacity (from 0.1 to 1.0)
+//            weight: 5 // The Weight
+//        },
+//        infoboxTexts: {// The Infobox Texts
+//            user: "Voce esta aqui", // User Marker Text
+//            target: "Seu destino é aqui" // Target Marker Text
+//        }
+//    });
                 });
             }
         });
     },
     init: function() {
         $('header #filters form').submit(App.apply_filters);
-        App.map = new OpenLayers.Map({
-            div: "map",
-            layers: [new OpenLayers.Layer.OSM()],
-            center: new OpenLayers.LonLat(-51.22067189, -30.06074719).transform("EPSG:4326", "EPSG:900913"),
-            zoom: 12.5
+        App.map = new google.maps.Map(document.getElementById("map"), {
+            center: new google.maps.LatLng(-30.06074719, -51.22067189),
+            mapTypeId: 'roadmap',
+            zoom: 12
         });
         App.apply_stations();
     }
