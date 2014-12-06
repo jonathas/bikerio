@@ -1,7 +1,7 @@
 {
-  "name": "bikePOA",
+  "name": "BikeRio",
   "version": "1.0",
-  "description": "Descrição",
+  "description": "Aplicativo para visualização das estações disponíveis.",
   "launch_path": "/index.html",
   "icons": {
     "16": "/img/icon/icon-16.png",
@@ -15,8 +15,8 @@
     "256": "/img/icon/icon-256.png"
   },
   "developer": {
-    "name": "Rodrigo Waters",
-    "url": "http://www.rodrigowaters.com"
+    "name": "Jonathas Rodrigues",
+    "url": "http://jonathas.com"
   },
   "default_locale": "pt-BR"
 }

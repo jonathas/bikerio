@@ -26,9 +26,9 @@ var App = {
     },
     order_by_name: function() {
         App.stations.sort(function(a, b) {
-            if (a.nome > b.nome)
+            if (a.name > b.name)
                 return 1;
-            if (a.nome < b.nome)
+            if (a.name < b.name)
                 return -1;
             return 0;
         });
@@ -37,20 +37,21 @@ var App = {
         $("main#main menu article").empty();
 //        var markers = new OpenLayers.Layer.Markers("Markers");
         $.ajax({
-            url: 'http://datapoa.com.br/api/action/datastore_search',
+            url: 'http://dadosabertos.rio.rj.gov.br/apiTransporte/apresentacao/rest/index.cfm/estacoesBikeRio',
             data: {
-                resource_id: 'b64586af-cd7c-47c3-9b92-7b99875e1c08'
+                /*resource_id: 'b64586af-cd7c-47c3-9b92-7b99875e1c08'*/
             },
-            dataType: 'jsonp',
+            dataType: 'json',
             success: function($response) {
-                App.stations = $response.result.records;
+                App.stations = $response.DATA;
+                console.log($response);
                 var $items = [];
                 App.order_by_name();
                 var $marker = [];
                 $.each(App.stations, function($key, $station) {
-                    $station.name = (($station.nome).replaceAll('_', ' ')).toString();
+                    $station.name = $station[1];
                     $marker[$key] = new google.maps.Marker({
-                        position: new google.maps.LatLng($station.LATITUDE, $station.LONGITUDE),
+                        position: new google.maps.LatLng($station[5], $station[6]),
                         map: App.map,
                         title: $station.name,
 //                        icon: 'images/beachflag.png'
@@ -64,7 +65,7 @@ var App = {
                     $items.push(App.template($key, $station.name));
                 });
                 App.stations.sort(function(a, b) {
-                    return a['nome'] - b['nome'];
+                    return a['name'] - b['name'];
                 });
                 $("<div/>", {
                     class: 'list card',
@@ -101,7 +102,7 @@ var App = {
     init: function() {
         $('header #filters form').submit(App.apply_filters);
         App.map = new google.maps.Map(document.getElementById("map"), {
-            center: new google.maps.LatLng(-30.06074719, -51.22067189),
+            center: new google.maps.LatLng(-22.9419444,-43.2414242),
             mapTypeId: 'roadmap',
             zoom: 12
         });
